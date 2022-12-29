@@ -9,5 +9,7 @@ namespace domain.Entities
         public string Image { get; set; }
 
         public string Color { get; set; }
+
+        public double Amount { get; set; }
     }
 }

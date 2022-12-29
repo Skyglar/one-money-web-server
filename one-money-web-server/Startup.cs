@@ -1,3 +1,4 @@
+using common.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -15,9 +16,11 @@ namespace one_money_web_server
     {
         public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+
+            FolderManager.InitializeFolderManager(env.ContentRootPath);
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
