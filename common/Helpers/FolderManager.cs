@@ -48,5 +48,9 @@ namespace common.Helpers
         }
 
         public static string GetCategoryFolder() => Path.Combine(_serverPath, _categoryFolder);
+
+        public static string Convert(string path, string host) {
+            return path.Replace(_serverPath, host).Replace('\\', '/');
+        }
     }
 }

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using System;
@@ -17,9 +18,17 @@ namespace one_money_web_server
     {
         public IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration, IWebHostEnvironment env)
+        private readonly IWebHostEnvironment _environment;
+
+        public Startup(IWebHostEnvironment env)
         {
-            Configuration = configuration;
+            IConfigurationBuilder builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
+
+            _environment = env;
 
             FolderManager.InitializeFolderManager(env.ContentRootPath);
         }
@@ -46,6 +55,11 @@ namespace one_money_web_server
             }
 
             app.UseRouting();
+            app.UseStaticFiles(new StaticFileOptions {
+                RequestPath = "/Data",
+                FileProvider = new PhysicalFileProvider(_environment.ContentRootPath + "\\Data"),
+                ServeUnknownFileTypes = true
+            });
             
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
