@@ -57,6 +57,24 @@ namespace one_money_web_server.Controllers
                 Color = "#fafd41",
                 Amount = 1534.50
             });
+            categories.Add(new Category {
+                Name = "Charity",
+                Image = FolderManager.Convert(Path.Combine(FolderManager.GetCategoryFolder(), "shopping-cart.svg"), $"{Request.Scheme}://{Request.Host.Value}"),
+                Color = "#074e8f",
+                Amount = 2453.98
+            });
+            categories.Add(new Category {
+                Name = "Health",
+                Image = FolderManager.Convert(Path.Combine(FolderManager.GetCategoryFolder(), "gift.svg"), $"{Request.Scheme}://{Request.Host.Value}"),
+                Color = "#9b2bd5",
+                Amount = 3000.00
+            });
+            categories.Add(new Category {
+                Name = "Other",
+                Image = FolderManager.Convert(Path.Combine(FolderManager.GetCategoryFolder(), "balance.svg"), $"{Request.Scheme}://{Request.Host.Value}"),
+                Color = "#0ce7aa",
+                Amount = 534.50
+            });
 
             try
             {
