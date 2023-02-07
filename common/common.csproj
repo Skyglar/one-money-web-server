@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ResourceNames\" />
     <Folder Include="WebApi\RoutingConfiguration\Maps\" />
   </ItemGroup>
 

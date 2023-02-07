@@ -1,23 +1,42 @@
 ﻿using common.WebApi.RoutingConfiguration;
 using common.WebApi;
 using Microsoft.AspNetCore.Mvc;
-using common.Helpers.Enums;
 using domain.Entities;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System;
 using common.Helpers;
 using System.IO;
+using domain.Repositories;
+using domain.Database.Contracts;
+using domain.Repositories.DbConnection.Contracts;
 
-namespace one_money_web_server.Controllers
-{
+namespace one_money_web_server.Controllers {
     [AssignControllerRoute(WebApiEnvironment.Current, WebApiVersion.ApiVersion1, "category")]
     public sealed class CategoryController : Controller
     {
+        private readonly IDbConnectionFactory _connectionFactory;
+
+        public CategoryController(IDbConnectionFactory connectionFactory) {
+            this._connectionFactory = connectionFactory;
+        }
+
+
         [HttpGet]
         [AssignActionRoute("get")]
         public async Task<IActionResult> GetCategories(string payload)
         {
+
+            CategoryRepository categoryRepository = new CategoryRepository(_connectionFactory.NewDatabaseConnection());
+
+            await categoryRepository.Add(new Category {
+                Name = "Taxes",
+                Image = FolderManager.Convert(Path.Combine(FolderManager.GetCategoryFolder(), "balance.svg"), $"{Request.Scheme}://{Request.Host.Value}"),
+                Color = "blue",
+                Amount = 534.50
+            });
+
+            List<Category> categories1 = await categoryRepository.GetAll();
 
             List<Category> categories = new List<Category>();
 

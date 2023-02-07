@@ -1,10 +1,14 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using System;
 
 namespace domain.Entities
 {
     public abstract class EntityBase
     {
-        public long Id { get; set; }
+        [BsonId]
+        [BsonRepresentation(BsonType.ObjectId)]
+        public string Id { get; set; }
 
         public Guid NetUid { get; set; }
 
