@@ -7,37 +7,22 @@ using System.Threading.Tasks;
 using System;
 using common.Helpers;
 using System.IO;
-using domain.Repositories;
-using domain.Database.Contracts;
-using domain.Repositories.DbConnection.Contracts;
+using service.Services.Categories.Contracts;
 
 namespace one_money_web_server.Controllers {
     [AssignControllerRoute(WebApiEnvironment.Current, WebApiVersion.ApiVersion1, "category")]
     public sealed class CategoryController : Controller
     {
-        private readonly IDbConnectionFactory _connectionFactory;
+        private readonly ICategoryService _categoryService;
 
-        public CategoryController(IDbConnectionFactory connectionFactory) {
-            this._connectionFactory = connectionFactory;
+        public CategoryController(ICategoryService categoryService) {
+            _categoryService = categoryService;
         }
 
-
         [HttpGet]
-        [AssignActionRoute("get")]
+        [AssignActionRoute("get/static")]
         public async Task<IActionResult> GetCategories(string payload)
         {
-
-            CategoryRepository categoryRepository = new CategoryRepository(_connectionFactory.NewDatabaseConnection());
-
-            await categoryRepository.Add(new Category {
-                Name = "Taxes",
-                Image = FolderManager.Convert(Path.Combine(FolderManager.GetCategoryFolder(), "balance.svg"), $"{Request.Scheme}://{Request.Host.Value}"),
-                Color = "blue",
-                Amount = 534.50
-            });
-
-            List<Category> categories1 = await categoryRepository.GetAll();
-
             List<Category> categories = new List<Category>();
 
             categories.Add(new Category {
@@ -101,6 +86,28 @@ namespace one_money_web_server.Controllers {
             }
             catch (Exception)
             {
+                return BadRequest("Bad request");
+            }
+        }
+
+        [HttpPost]
+        [AssignActionRoute("new")]
+        public async Task<IActionResult> AddCategoryAsync([FromBody] Category category) {
+            try {
+                return Ok(await _categoryService.AddCategoryAsync(category));
+            }
+            catch (Exception) {
+                return BadRequest("Bad request");
+            }
+        }
+
+        [HttpGet]
+        [AssignActionRoute("all")]
+        public async Task<IActionResult> GetAllCategoriesAsync() {
+            try {
+                return Ok(await _categoryService.GetAllCategoriesAsync());
+            }
+            catch (Exception) {
                 return BadRequest("Bad request");
             }
         }

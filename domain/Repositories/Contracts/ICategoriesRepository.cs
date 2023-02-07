@@ -1,12 +1,15 @@
 ﻿
 using domain.Entities;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace domain.Repositories.Contracts {
     public interface ICategoriesRepository {
-        Task Add(Category category);
+        void Add(Category category);
 
-        Task<List<Category>> GetAll();
+        List<Category> GetAll();
+
+        Category GetById(string id);
+
+        void Delete(string id);
     }
 }

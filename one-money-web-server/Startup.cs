@@ -2,6 +2,8 @@ using common;
 using common.Helpers;
 using domain.Database;
 using domain.Database.Contracts;
+using domain.Repositories;
+using domain.Repositories.Contracts;
 using domain.Repositories.DbConnection;
 using domain.Repositories.DbConnection.Contracts;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +15,8 @@ using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
+using service.Services.Categories;
+using service.Services.Categories.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,12 +57,9 @@ namespace one_money_web_server
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
-            //services.Configure<DatabaseSettings>(
-            //    Configuration.GetSection(nameof(DatabaseSettings)));
-            //services.AddSingleton<IDatabaseSettings>(provider =>
-            //    provider.GetRequiredService<IOptions<DatabaseSettings>>().Value);
-
             services.AddScoped<IDbConnectionFactory, DbConnectionFactory>();
+            services.AddScoped<ICategoryRepositoriesFactory, CategoryRepositoriesFactory>();
+            services.AddScoped<ICategoryService, CategoryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
