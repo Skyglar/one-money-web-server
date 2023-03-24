@@ -1,4 +1,5 @@
-﻿using domain.Entities;
+﻿using common.Attributes.DILifeTimeAttributes;
+using domain.Entities;
 using domain.Repositories.Contracts;
 using service.Services.Categories.Contracts;
 using System;
@@ -6,48 +7,37 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace service.Services.Categories {
+    [ScopedRegistration]
     public sealed class CategoryService : ICategoryService {
-        private readonly IRepositoriesFactory _categoryRepositoriesFactory;
+        private readonly ICategoryRepository _categoriesRepository;
 
-        public CategoryService(IRepositoriesFactory categoryRepositoriesFactory) {
-            _categoryRepositoriesFactory = categoryRepositoriesFactory;
+        public CategoryService(ICategoryRepository categoriesRepository) {
+            _categoriesRepository = categoriesRepository;
         }
 
         public Task<List<Category>> AddCategoryAsync(Category category) {
             return Task.Run(() => {
-                ICategoriesRepository categoriesRepository =
-                    _categoryRepositoriesFactory.NewCategoryRepository();
+                _categoriesRepository.Add(category);
 
-                categoriesRepository.Add(category);
-
-                return categoriesRepository.GetAll();
+                return _categoriesRepository.GetAll();
             });
         }
 
         public Task DeleteCategoryAsync(Category category) {
             return Task.Run(() => {
-                ICategoriesRepository categoriesRepository =
-                    _categoryRepositoriesFactory.NewCategoryRepository();
-
-                categoriesRepository.Delete(category);
+                _categoriesRepository.Delete(category);
             });
         }
 
         public Task<List<Category>> GetAllCategoriesAsync() {
             return Task.Run(() => {
-                ICategoriesRepository categoriesRepository =
-                    _categoryRepositoriesFactory.NewCategoryRepository();
-
-                return categoriesRepository.GetAll();
+                return _categoriesRepository.GetAll();
             });
         }
 
         public Task<Category> GetCategoryByIdAsync(long id) {
             return Task.Run(() => {
-                ICategoriesRepository categoriesRepository =
-                    _categoryRepositoriesFactory.NewCategoryRepository();
-
-                return categoriesRepository.GetById(id);
+                return _categoriesRepository.GetById(id);
             });
         }
 

@@ -3,7 +3,7 @@ using domain.Entities;
 using System.Collections.Generic;
 
 namespace domain.Repositories.Contracts {
-    public interface ICategoriesRepository {
+    public interface ICategoryRepository {
         void Add(Category category);
 
         List<Category> GetAll();

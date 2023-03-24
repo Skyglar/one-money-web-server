@@ -1,4 +1,5 @@
 ﻿
+using common.Attributes.DILifeTimeAttributes;
 using domain.Database;
 using domain.Entities;
 using domain.Repositories.Contracts;
@@ -6,7 +7,8 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace domain.Repositories {
-    public sealed class CategoryRepository : ICategoriesRepository {
+    [ScopedRegistration]
+    public sealed class CategoryRepository : ICategoryRepository {
         private readonly OneMoneyContext _dbContext;
 
         public CategoryRepository(OneMoneyContext dbContext) {

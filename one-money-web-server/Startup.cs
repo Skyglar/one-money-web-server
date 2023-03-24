@@ -1,27 +1,27 @@
 using common;
 using common.Helpers;
-using domain.Repositories;
-using domain.Repositories.Contracts;
+using common.Extensions;
+using domain.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
-using service.Services.Categories;
-using service.Services.Categories.Contracts;
+using System;
+using System.IO;
 
-namespace one_money_web_server
-{
-    public class Startup
-    {
+namespace one_money_web_server {
+    public class Startup {
         public IConfiguration Configuration { get; }
+
+        private string DbPath { get; }
 
         private readonly IWebHostEnvironment _environment;
 
-        public Startup(IWebHostEnvironment env)
-        {
+        public Startup(IWebHostEnvironment env) {
             IConfigurationBuilder builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json")
@@ -33,12 +33,15 @@ namespace one_money_web_server
             FolderManager.InitializeFolderManager(env.ContentRootPath);
 
             AppSettingsConfigurationManager.SetAppSettingsProperties(Configuration);
+
+            Environment.SpecialFolder folder = Environment.SpecialFolder.LocalApplicationData;
+            string path = Environment.GetFolderPath(folder);
+            DbPath = Path.Join(path, Configuration.GetConnectionString("DatabaseName"));
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
-        public void ConfigureServices(IServiceCollection services)
-        {
+        public void ConfigureServices(IServiceCollection services) {
             services.AddControllers();
             services.AddSwaggerGen();
             services.AddCors();
@@ -48,20 +51,19 @@ namespace one_money_web_server
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
-            services.AddScoped<IRepositoriesFactory, RepositoriesFactory>();
-            services.AddScoped<ICategoryService, CategoryService>();
+            services.AddDbContext<OneMoneyContext>(options => options.UseSqlite($"Data Source={DbPath}"));
+
+            services.RegisterServices(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
-        {
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
             app.UseSwagger();
             app.UseSwaggerUI(c => {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Random name");
             });
 
-            if (env.IsDevelopment())
-            {
+            if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
 
@@ -71,11 +73,10 @@ namespace one_money_web_server
                 FileProvider = new PhysicalFileProvider(_environment.ContentRootPath + "\\Data"),
                 ServeUnknownFileTypes = true
             });
-            
+
             app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
-            app.UseEndpoints(endpoints =>
-            {
+            app.UseEndpoints(endpoints => {
                 endpoints.MapControllers();
             });
         }
