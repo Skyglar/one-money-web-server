@@ -1,31 +1,33 @@
 ﻿
+using domain.Database;
 using domain.Entities;
 using domain.Repositories.Contracts;
-using MongoDB.Driver;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace domain.Repositories {
     public sealed class CategoryRepository : ICategoriesRepository {
-        private readonly IMongoCollection<Category> _categoriesCollection;
+        private readonly OneMoneyContext _dbContext;
 
-        public CategoryRepository(IMongoDatabase connection) {
-            _categoriesCollection = connection.GetCollection<Category>(nameof(Category));
+        public CategoryRepository(OneMoneyContext dbContext) {
+            _dbContext = dbContext;
         }
 
         public void Add(Category category) {
-            _categoriesCollection.InsertOne(category);
+            _dbContext.Categories.Add(category);
+            _dbContext.SaveChanges();
         }
 
-        public void Delete(string id) {
-            _categoriesCollection.DeleteOne(id);
+        public void Delete(Category category) {
+            _dbContext.Categories.Remove(category);
         }
 
         public List<Category> GetAll() {
-            return _categoriesCollection.Find(c => true).ToList();
+            return _dbContext.Categories.ToList();
         }
 
-        public Category GetById(string id) {
-            return _categoriesCollection.Find(c => c.Id.Equals(id)).FirstOrDefault();
+        public Category GetById(long id) {
+            return _dbContext.Categories.Find(id);
         }
     }
 }

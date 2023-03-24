@@ -9,9 +9,9 @@ namespace service.Services.Categories.Contracts {
 
         Task<Category> UpdateCategoryAsync(Category category);
 
-        Task DeleteCategoryAsync(string id);
+        Task DeleteCategoryAsync(Category category);
 
-        Task<Category> GetCategoryByIdAsync(string id);
+        Task<Category> GetCategoryByIdAsync(long id);
 
         Task<List<Category>> GetAllCategoriesAsync();
     }

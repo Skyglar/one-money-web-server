@@ -8,8 +8,8 @@ namespace domain.Repositories.Contracts {
 
         List<Category> GetAll();
 
-        Category GetById(string id);
+        Category GetById(long id);
 
-        void Delete(string id);
+        void Delete(Category category);
     }
 }

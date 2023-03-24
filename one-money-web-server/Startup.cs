@@ -1,26 +1,16 @@
 using common;
 using common.Helpers;
-using domain.Database;
-using domain.Database.Contracts;
 using domain.Repositories;
 using domain.Repositories.Contracts;
-using domain.Repositories.DbConnection;
-using domain.Repositories.DbConnection.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Serialization;
 using service.Services.Categories;
 using service.Services.Categories.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace one_money_web_server
 {
@@ -58,8 +48,7 @@ namespace one_money_web_server
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
 
-            services.AddScoped<IDbConnectionFactory, DbConnectionFactory>();
-            services.AddScoped<ICategoryRepositoriesFactory, CategoryRepositoriesFactory>();
+            services.AddScoped<IRepositoriesFactory, RepositoriesFactory>();
             services.AddScoped<ICategoryService, CategoryService>();
         }
 
