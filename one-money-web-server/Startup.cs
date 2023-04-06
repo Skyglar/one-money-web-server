@@ -12,12 +12,15 @@ using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using System;
 using System.IO;
+using domain.Entities;
+using Microsoft.AspNetCore.Identity;
 
 namespace one_money_web_server {
     public class Startup {
         public IConfiguration Configuration { get; }
 
         private string DbPath { get; }
+        private string IdentityDbPath { get; }
 
         private readonly IWebHostEnvironment _environment;
 
@@ -37,6 +40,7 @@ namespace one_money_web_server {
             Environment.SpecialFolder folder = Environment.SpecialFolder.LocalApplicationData;
             string path = Environment.GetFolderPath(folder);
             DbPath = Path.Join(path, Configuration.GetConnectionString("DatabaseName"));
+            IdentityDbPath = Path.Join(path, Configuration.GetConnectionString("IdentityDatabaseName"));
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -52,6 +56,11 @@ namespace one_money_web_server {
             });
 
             services.AddDbContext<OneMoneyContext>(options => options.UseSqlite($"Data Source={DbPath}"));
+            services.AddDbContext<ApplicationIdentityContext>(options => options.UseSqlite($"Data Source={IdentityDbPath}"));
+
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationIdentityContext>()
+                .AddDefaultTokenProviders(); ;
 
             services.RegisterServices(Configuration);
         }
