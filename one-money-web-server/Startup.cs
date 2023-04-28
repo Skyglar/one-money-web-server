@@ -14,6 +14,7 @@ using System;
 using System.IO;
 using domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace one_money_web_server {
     public class Startup {
@@ -46,7 +47,7 @@ namespace one_money_web_server {
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services) {
-            services.AddControllers();
+            services.AddControllers(o => o.Filters.Add(new AuthorizeFilter()));
             services.AddSwaggerGen();
             services.AddCors();
 
@@ -58,9 +59,17 @@ namespace one_money_web_server {
             services.AddDbContext<OneMoneyContext>(options => options.UseSqlite($"Data Source={DbPath}"));
             services.AddDbContext<ApplicationIdentityContext>(options => options.UseSqlite($"Data Source={IdentityDbPath}"));
 
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<ApplicationIdentityContext>()
-                .AddDefaultTokenProviders(); ;
+            services.AddIdentity<User, IdentityRole>(options => {
+                options.Password.RequireDigit = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireUppercase = false;
+                options.User.RequireUniqueEmail = true;
+                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+            })
+            .AddEntityFrameworkStores<ApplicationIdentityContext>()
+            .AddDefaultTokenProviders();
+
+            services.AddAuthentication();
 
             services.RegisterServices(Configuration);
         }
@@ -77,6 +86,8 @@ namespace one_money_web_server {
             }
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseStaticFiles(new StaticFileOptions {
                 RequestPath = "/Data",
                 FileProvider = new PhysicalFileProvider(_environment.ContentRootPath + "\\Data"),

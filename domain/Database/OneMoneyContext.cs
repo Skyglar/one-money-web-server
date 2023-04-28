@@ -2,11 +2,11 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace domain.Database {
-    public sealed class OneMoneyContext : DbContext {
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Account> Accounts { get; set; }
-        public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<Currency> Currencies { get; set; }
+    public class OneMoneyContext : DbContext {
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; }
+        public virtual DbSet<Transaction> Transactions { get; set; }
+        public virtual DbSet<Currency> Currencies { get; set; }
 
         public OneMoneyContext(DbContextOptions<OneMoneyContext> options) : base(options) {
 
