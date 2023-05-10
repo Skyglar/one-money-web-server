@@ -1,9 +1,9 @@
 ﻿using common.ResponseBuilder.Contracts;
+using Microsoft.AspNetCore.Mvc;
 using NLog;
 using System.Net;
-using System.Web.Mvc;
 
-namespace common.WebApi
+namespace one_money_web_server.Controllers
 {
     public abstract class WebApiControllerBase : Controller
     {

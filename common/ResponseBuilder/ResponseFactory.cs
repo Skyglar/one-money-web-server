@@ -1,6 +1,8 @@
-﻿using common.ResponseBuilder.Contracts;
+﻿using common.Attributes.DILifeTimeAttributes;
+using common.ResponseBuilder.Contracts;
 
 namespace common.ResponseBuilder {
+    [ScopedRegistration]
     public class ResponseFactory : IResponseFactory {
         public IWebResponse GetSuccessReponse() {
             return new SuccessResponse();

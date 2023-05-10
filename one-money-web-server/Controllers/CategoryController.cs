@@ -8,8 +8,10 @@ using System;
 using common.Helpers;
 using System.IO;
 using service.Services.Categories.Contracts;
+using Microsoft.AspNetCore.Authorization;
 
 namespace one_money_web_server.Controllers {
+    [Authorize]
     [AssignControllerRoute(WebApiEnvironment.Current, WebApiVersion.ApiVersion1, "category")]
     public sealed class CategoryController : Controller
     {

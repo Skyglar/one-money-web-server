@@ -15,6 +15,9 @@ using System.IO;
 using domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using domain.IdentityConfiguration;
 
 namespace one_money_web_server {
     public class Startup {
@@ -64,12 +67,26 @@ namespace one_money_web_server {
                 options.Password.RequiredLength = 6;
                 options.Password.RequireUppercase = false;
                 options.User.RequireUniqueEmail = true;
-                options.User.AllowedUserNameCharacters = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.AllowedUserNameCharacters = AuthConfig.AllowedUserNameCharacters;
             })
             .AddEntityFrameworkStores<ApplicationIdentityContext>()
             .AddDefaultTokenProviders();
 
-            services.AddAuthentication();
+            services.AddAuthentication(options => {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(options => {
+                options.TokenValidationParameters = new TokenValidationParameters {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = AuthConfig.ISSUER,
+                    ValidAudience = AuthConfig.AUDIENCE,
+                    IssuerSigningKey = AuthConfig.GetSymmetricSecurityKey(),
+                };
+            });
 
             services.RegisterServices(Configuration);
         }

@@ -3,6 +3,7 @@ using common.WebApi;
 using common.WebApi.RoutingConfiguration;
 using domain.Entities.Dtos;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using service.Services.UserAuthentication.Contracts;
 using System;
@@ -25,11 +26,15 @@ namespace one_money_web_server.Controllers {
         [AssignActionRoute("signup")]
         public async Task<IActionResult> SignUpAsync([FromBody] UserRegistrationDto userDto) {
             try {
-                await userAuthenticationService.SignUpUserAsync(userDto);
+                IdentityResult identityResult = await userAuthenticationService.SignUpUserAsync(userDto);
 
-                return new OkObjectResult(SuccessResponseBody(null));
+                if (identityResult.Succeeded) {
+                    return Ok(SuccessResponseBody(identityResult));
+                }
+
+                return BadRequest(ErrorResponseBody(identityResult.Errors.ToString(), HttpStatusCode.BadRequest));
             } catch (Exception exc) {
-                return new BadRequestObjectResult(ErrorResponseBody(exc.Message, HttpStatusCode.BadRequest));
+                return BadRequest(ErrorResponseBody(exc.Message, HttpStatusCode.BadRequest));
             }
         }
     }
