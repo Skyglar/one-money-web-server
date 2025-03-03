@@ -1,0 +1,17 @@
+﻿
+using domain.Entities;
+using System.Collections.Generic;
+
+namespace Infrastructure.Repositories.Contracts {
+    public interface ICategoryRepository {
+        void Add(Category category);
+
+        List<Category> GetAll();
+
+        Category GetById(long id);
+
+        void Delete(Category category);
+
+        Category UpdateCategory(Category category);
+    }
+}

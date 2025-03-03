@@ -1,7 +1,6 @@
 ﻿using common.ResponseBuilder.Contracts;
 using common.WebApi;
 using common.WebApi.RoutingConfiguration;
-using domain.Entities.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +8,7 @@ using service.Services.UserAuthentication.Contracts;
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using service.Dtos;
 
 namespace one_money_web_server.Controllers {
     [AllowAnonymous]

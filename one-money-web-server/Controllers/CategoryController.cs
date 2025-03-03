@@ -113,5 +113,15 @@ namespace one_money_web_server.Controllers {
                 return BadRequest("Bad request");
             }
         }
+
+        [HttpPatch]
+        [AssignActionRoute("edit")]
+        public async Task<IActionResult> UpdateCategoryAsync([FromBody] Category category) {
+            try {
+                return Ok(await _categoryService.UpdateCategoryAsync(category));
+            } catch(Exception) {
+                return BadRequest("Bad request");
+            }
+        }
     }
 }

@@ -5,11 +5,13 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "one-money-web-server", "one-money-web-server\one-money-web-server.csproj", "{860FB9BA-E859-4EC1-8047-8DD42F036451}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "domain", "domain\domain.csproj", "{2951C14D-781C-4744-994C-7DB98861CF37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{2951C14D-781C-4744-994C-7DB98861CF37}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "service", "service\service.csproj", "{83E2B8DE-B8F9-4595-8998-7ADDBA6BC223}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Service", "Service\Service.csproj", "{83E2B8DE-B8F9-4595-8998-7ADDBA6BC223}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "common", "common\common.csproj", "{592EB61E-5C2B-4096-B7BD-091EBC30D080}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{18F31989-EEAC-4059-80BA-35B96181F4E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{592EB61E-5C2B-4096-B7BD-091EBC30D080}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{592EB61E-5C2B-4096-B7BD-091EBC30D080}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{592EB61E-5C2B-4096-B7BD-091EBC30D080}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18F31989-EEAC-4059-80BA-35B96181F4E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18F31989-EEAC-4059-80BA-35B96181F4E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18F31989-EEAC-4059-80BA-35B96181F4E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18F31989-EEAC-4059-80BA-35B96181F4E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

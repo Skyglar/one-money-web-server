@@ -1,7 +1,7 @@
 using common;
 using common.Helpers;
 using common.Extensions;
-using domain.Database;
+using Infrastructure.Database;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -17,7 +17,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using domain.IdentityConfiguration;
+using Infrastructure.IdentityConfiguration;
 
 namespace one_money_web_server {
     public class Startup {

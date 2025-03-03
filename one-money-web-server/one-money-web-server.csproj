@@ -18,8 +18,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\common\common.csproj" />
-    <ProjectReference Include="..\domain\domain.csproj" />
-    <ProjectReference Include="..\service\service.csproj" />
+    <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\Service\Service.csproj" />
   </ItemGroup>
 
 </Project>
