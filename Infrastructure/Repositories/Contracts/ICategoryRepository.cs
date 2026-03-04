@@ -4,14 +4,14 @@ using System.Collections.Generic;
 
 namespace Infrastructure.Repositories.Contracts {
     public interface ICategoryRepository {
-        void Add(Category category);
+        Task AddAsync(Category category, CancellationToken cancellationToken = default);
 
-        List<Category> GetAll();
+        Task<List<Category>> GetAllAsync(CancellationToken cancellationToken = default);
 
-        Category GetById(long id);
+        Task<Category?> GetByIdAsync(long id, CancellationToken cancellationToken = default);
 
         void Delete(Category category);
 
-        Category UpdateCategory(Category category);
+        void UpdateCategory(Category category);
     }
 }

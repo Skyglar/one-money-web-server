@@ -1,7 +1,7 @@
-﻿using common.ResponseBuilder.Contracts;
-using System.Net;
+﻿using System.Net;
+using common.ResponseBuilder.Contracts;
 
-namespace common.ResponseBuilder {
+namespace one_money_web_server.ResponseBuilder {
     public class ErrorResponse : IWebResponse {
         public object Body { get; set; }
 

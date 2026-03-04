@@ -4,7 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
 
-namespace common.Extensions {
+namespace one_money_web_server.Extensions {
     public static class ServiceExtension {
         public static void RegisterServices(this IServiceCollection services, IConfiguration configuration) {
             // Define types that need matching
