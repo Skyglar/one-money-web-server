@@ -1,5 +1,4 @@
 ﻿
-using common.Attributes.DILifeTimeAttributes;
 using domain.Entities;
 using Microsoft.AspNetCore.Identity;
 using service.Services.UserAuthentication.Contracts;
@@ -11,7 +10,6 @@ using service.Dtos;
 
 namespace service.Services.UserAuthentication
 {
-    [ScopedRegistration]
     public sealed class UserAuthenticationService : IUserAuthenticationService {
         private readonly IUserAuthenticationRepository userAuthenticationRepository;
 

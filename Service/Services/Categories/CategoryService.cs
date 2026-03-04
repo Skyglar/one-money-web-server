@@ -1,13 +1,10 @@
-﻿using common.Attributes.DILifeTimeAttributes;
-using domain.Entities;
+﻿using domain.Entities;
 using Infrastructure.Repositories.Contracts;
 using service.Services.Categories.Contracts;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace service.Services.Categories {
-    [ScopedRegistration]
     public sealed class CategoryService : ICategoryService {
         private readonly ICategoryRepository _categoriesRepository;
 
@@ -15,36 +12,27 @@ namespace service.Services.Categories {
             _categoriesRepository = categoriesRepository;
         }
 
-        public Task<List<Category>> AddCategoryAsync(Category category) {
-            return Task.Run(() => {
-                _categoriesRepository.Add(category);
+        public async Task<List<Category>> AddCategoryAsync(Category category) {
+            await _categoriesRepository.AddAsync(category);
 
-                return _categoriesRepository.GetAll();
-            });
+            return await _categoriesRepository.GetAllAsync();
         }
 
-        public Task DeleteCategoryAsync(Category category) {
-            return Task.Run(() => {
-                _categoriesRepository.Delete(category);
-            });
+        public async Task DeleteCategoryAsync(Category category) {
+            _categoriesRepository.Delete(category);
         }
 
-        public Task<List<Category>> GetAllCategoriesAsync() {
-            return Task.Run(() => {
-                return _categoriesRepository.GetAll();
-            });
+        public async Task<List<Category>> GetAllCategoriesAsync() {
+            return await _categoriesRepository.GetAllAsync();
         }
 
-        public Task<Category> GetCategoryByIdAsync(long id) {
-            return Task.Run(() => {
-                return _categoriesRepository.GetById(id);
-            });
+        public async Task<Category> GetCategoryByIdAsync(long id) {
+            return await _categoriesRepository.GetByIdAsync(id);
         }
 
-        public Task<Category> UpdateCategoryAsync(Category category) {
-            return Task.Run(() => {
-                return _categoriesRepository.UpdateCategory(category);
-            });
+        public async Task<Category> UpdateCategoryAsync(Category category) {
+            _categoriesRepository.UpdateCategory(category);
+            return await GetCategoryByIdAsync(category.Id);
         }
     }
 }
