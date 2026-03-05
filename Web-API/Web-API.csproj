@@ -17,11 +17,4 @@
         <PackageReference Include="Swashbuckle.AspNetCore" Version="10.1.4" />
     </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\common\common.csproj" />
-    <ProjectReference Include="..\Domain\Domain.csproj" />
-    <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-    <ProjectReference Include="..\Service\Service.csproj" />
-  </ItemGroup>
-
 </Project>
