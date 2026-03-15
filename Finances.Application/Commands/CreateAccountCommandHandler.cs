@@ -1,20 +1,43 @@
 using Finances.Domain.AggregateModels.AccountAggregate;
+using Finances.Domain.Exceptions;
+using MediatR;
+using OneMoney.Common.SeedWork;
 
 namespace Finances.Application.Commands;
 
-// Will use MediatR in the future 
-public sealed class CreateAccountCommandHandler(IAccountRepository accountRepository) {
-    
-    public async Task<bool> Handle(CreateAccountCommand command, CancellationToken cancellationToken)
-    {
-        Account? account = await accountRepository.FindAsync(command.Name);
-        if (account != null)
-        {
-            return false;
+public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand, Guid> {
+    private readonly IAccountRepository _repository;
+    private readonly ICurrencyRepository _currencyRepository;
+    private readonly IUnitOfWork _uow;
+
+    public CreateAccountCommandHandler(
+        IAccountRepository repository,
+        ICurrencyRepository currencyRepository,
+        IUnitOfWork uow) {
+        _repository = repository;
+        _currencyRepository = currencyRepository;
+        _uow = uow;
+    }
+
+    public async Task<Guid> Handle(CreateAccountCommand request, CancellationToken ct) {
+        Currency currency = await _currencyRepository.FindByCodeAsync(request.Currency, ct);
+
+        if (currency == null) {
+            throw new AccountException("Currency not found");
         }
-        
-        await accountRepository.AddAsync(new Account {Name = command.Name, Amount = command.Amount });
-        
-        return await accountRepository.UnitOfWork.SaveEntitiesAsync(cancellationToken);
+
+        var account = new Account(
+            request.Name,
+            request.InitialAmount,
+            request.Description,
+            AccountType.Savings,
+            currency
+        );
+
+        _repository.Add(account);
+
+        await _uow.SaveChangesAsync(ct);
+
+        return account.Id;
     }
 }

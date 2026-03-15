@@ -1,9 +1,9 @@
-using Finances.Domain.SeedWork;
+using OneMoney.Common.SeedWork;
 
 namespace Finances.Domain.AggregateModels.CategoryAggregate;
 
 public interface ICategoryRepository : IRepository<Category> {
-    Task<Category> AddAsync(Category category, CancellationToken ct = default);
+    Category Add(Category category);
 
     void Update(Category category);
 

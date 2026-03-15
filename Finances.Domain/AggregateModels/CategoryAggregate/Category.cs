@@ -1,4 +1,4 @@
-using Finances.Domain.SeedWork;
+using OneMoney.Common.SeedWork;
 
 namespace Finances.Domain.AggregateModels.CategoryAggregate;
 
