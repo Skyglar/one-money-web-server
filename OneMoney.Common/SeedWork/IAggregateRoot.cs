@@ -1,4 +1,4 @@
-namespace Finances.Domain.SeedWork;
+namespace OneMoney.Common.SeedWork;
 
 public interface IAggregateRoot {
     

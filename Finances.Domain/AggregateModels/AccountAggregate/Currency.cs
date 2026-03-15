@@ -1,5 +1,22 @@
+
+using Finances.Domain.Exceptions;
+using OneMoney.Common.SeedWork;
+
 namespace Finances.Domain.AggregateModels.AccountAggregate;
 
-public sealed class Currency {
-    
+public sealed class Currency : Entity, IAggregateRoot {
+    public string Name { get; private set; }
+
+    public string Code { get; private set; }
+
+    private Currency() { }
+
+    public Currency(string name, string code) {
+        if (string.IsNullOrWhiteSpace(name)) throw new AccountException("Name is required");
+        if (string.IsNullOrWhiteSpace(code)) throw new AccountException("Code is required");
+        
+        Id = Guid.NewGuid();
+        Name = name;
+        Code = code;
+    }
 }
