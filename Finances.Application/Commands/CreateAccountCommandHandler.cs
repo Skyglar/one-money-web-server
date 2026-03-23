@@ -6,15 +6,15 @@ using OneMoney.Common.SeedWork;
 namespace Finances.Application.Commands;
 
 public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand, Guid> {
-    private readonly IAccountRepository _repository;
+    private readonly IAccountRepository _accountRepository;
     private readonly ICurrencyRepository _currencyRepository;
     private readonly IUnitOfWork _uow;
 
     public CreateAccountCommandHandler(
-        IAccountRepository repository,
+        IAccountRepository accountRepository,
         ICurrencyRepository currencyRepository,
         IUnitOfWork uow) {
-        _repository = repository;
+        _accountRepository = accountRepository;
         _currencyRepository = currencyRepository;
         _uow = uow;
     }
@@ -30,11 +30,11 @@ public class CreateAccountCommandHandler : IRequestHandler<CreateAccountCommand,
             request.Name,
             request.InitialAmount,
             request.Description,
-            AccountType.Savings,
+            request.AccountType,
             currency
         );
 
-        _repository.Add(account);
+        _accountRepository.Add(account);
 
         await _uow.SaveChangesAsync(ct);
 

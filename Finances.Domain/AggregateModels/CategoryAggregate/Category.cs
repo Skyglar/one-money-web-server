@@ -3,9 +3,18 @@ using OneMoney.Common.SeedWork;
 namespace Finances.Domain.AggregateModels.CategoryAggregate;
 
 public sealed class Category : Entity, IAggregateRoot{
-    public required string Name { get; set; }
+    public string Name { get; private set; }
 
-    public required string Image { get; set; }
+    public string Image { get; private set; }
 
-    public required string Color { get; set; }
+    public string Color { get; private set; }
+
+    private Category() { }
+
+    public Category(string name, string imageUrl, string color) {
+        Id = Guid.NewGuid();
+        Name = name;
+        Image = imageUrl;
+        Color = color;
+    }
 }

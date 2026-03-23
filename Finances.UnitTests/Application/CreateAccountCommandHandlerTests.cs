@@ -28,7 +28,7 @@ public class CreateAccountCommandHandlerTests {
         // Arrange
         var command = new CreateAccountCommand(
             "My Savings", 
-            "AccountType.Savings",
+            AccountType.Savings,
             1000m, 
             "USD", 
             "Vacation fund"
@@ -62,7 +62,7 @@ public class CreateAccountCommandHandlerTests {
     public async Task Handle_CurrencyNotFound_ShouldThrowException()
     {
         // Arrange
-        var command = new CreateAccountCommand("Test", "",100, "INVALID", "Desc");
+        var command = new CreateAccountCommand("Test", AccountType.Savings,100, "INVALID", "Desc");
         
         // Return null to simulate currency not found
         _currencyRepo.FindByCodeAsync("INVALID", Arg.Any<CancellationToken>())
