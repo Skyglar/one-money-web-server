@@ -10,11 +10,11 @@ public sealed class CreateCategoryCommandHandler(
     ) : IRequestHandler<CreateCategoryCommand, Guid> {
     
     public async Task<Guid> Handle(CreateCategoryCommand request, CancellationToken cancellationToken) {
-        string color = request.color ?? "FFFFFF"; // Create const with default color
-        string imageUrl = request.imageUrl ?? ""; // Same for image url
+        string color = request.Color ?? "FFFFFF"; // Create const with default color
+        string imageUrl = request.ImageUrl ?? ""; // Same for image url
 
         Category category = new Category(
-            request.name,
+            request.Name,
             imageUrl,
             color);
 
