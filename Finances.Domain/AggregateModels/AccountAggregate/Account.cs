@@ -5,7 +5,7 @@ namespace Finances.Domain.AggregateModels.AccountAggregate;
 
 public sealed class Account : Entity, IAggregateRoot {
     
-    public string Name { get; private set; }
+    public string Name { get; private set; } = string.Empty;
 
     public decimal Amount { get; private set; }
 
@@ -15,7 +15,7 @@ public sealed class Account : Entity, IAggregateRoot {
 
     public AccountType AccountType { get; private set; }
 
-    public Currency Currency { get; private set; }
+    public Currency Currency { get; private set; } = null!;
     
     private Account() { }
 

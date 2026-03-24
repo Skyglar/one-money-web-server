@@ -5,9 +5,9 @@ using OneMoney.Common.SeedWork;
 namespace Finances.Domain.AggregateModels.AccountAggregate;
 
 public sealed class Currency : Entity, IAggregateRoot {
-    public string Name { get; private set; }
+    public string Name { get; private set; } = string.Empty;
 
-    public string Code { get; private set; }
+    public string Code { get; private set; } = string.Empty;
 
     private Currency() { }
 

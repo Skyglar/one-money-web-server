@@ -32,6 +32,7 @@ public class CreateCategoryCommandHandlerTests {
         Assert.NotEqual(Guid.Empty, resultId);
         
         _categoryRepository.Received(1).Add(Arg.Is<Category>(a => 
+            a != null &&
             a.Name == command.Name && 
             a.Color == command.Color &&
             a.Image == command.ImageUrl &&

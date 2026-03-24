@@ -49,6 +49,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneMoney.Common", "OneMoney
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.UnitTests", "Common.UnitTests\Common.UnitTests.csproj", "{34CD21F4-8B8E-4435-BE27-B52ACC92503C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions.UnitTests", "Transactions.UnitTests\Transactions.UnitTests.csproj", "{5590524E-154E-4262-A3F1-F14C09089170}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -115,6 +117,10 @@ Global
 		{34CD21F4-8B8E-4435-BE27-B52ACC92503C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34CD21F4-8B8E-4435-BE27-B52ACC92503C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34CD21F4-8B8E-4435-BE27-B52ACC92503C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5590524E-154E-4262-A3F1-F14C09089170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5590524E-154E-4262-A3F1-F14C09089170}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5590524E-154E-4262-A3F1-F14C09089170}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5590524E-154E-4262-A3F1-F14C09089170}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -143,5 +149,6 @@ Global
 		{CC1AD998-AFEF-458D-8676-3261DFA7562F} = {7614442E-6925-4DD6-8611-8E536E2D2FFE}
 		{077905C7-0162-4CA4-81BC-6863BE201030} = {45E61512-3DC7-48CC-8A7F-6C55866679C1}
 		{34CD21F4-8B8E-4435-BE27-B52ACC92503C} = {7614442E-6925-4DD6-8611-8E536E2D2FFE}
+		{5590524E-154E-4262-A3F1-F14C09089170} = {7614442E-6925-4DD6-8611-8E536E2D2FFE}
 	EndGlobalSection
 EndGlobal
