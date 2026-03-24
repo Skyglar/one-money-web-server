@@ -50,6 +50,7 @@ public class CreateAccountCommandHandlerTests {
 
         // B. Verify the repository received an Account with correct data
         _accountRepo.Received(1).Add(Arg.Is<Account>(a => 
+            a != null &&
             a.Name == command.Name && 
             a.Amount == command.InitialAmount &&
             a.Id == resultId));

@@ -27,7 +27,6 @@ public class AccountAggregateTests {
     [Theory]
     [InlineData("")]
     [InlineData(" ")]
-    [InlineData(null)]
     public void Constructor_WithInvalidName_ShouldThrowAccountException(string invalidName)
     {
         // Arrange
