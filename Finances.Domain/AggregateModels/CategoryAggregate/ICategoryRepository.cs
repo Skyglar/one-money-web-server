@@ -7,5 +7,5 @@ public interface ICategoryRepository : IRepository<Category> {
 
     void Update(Category category);
 
-    Task<Category> GetAsync(int categoryId, CancellationToken ct = default);
+    Task<Category?> GetByIdAsync(Guid categoryId, CancellationToken ct = default);
 }

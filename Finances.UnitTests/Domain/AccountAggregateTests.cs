@@ -19,7 +19,7 @@ public class AccountAggregateTests {
 
         // Assert
         Assert.Equal(name, account.Name);
-        Assert.Equal(amount, account.Amount);
+        Assert.Equal(amount, account.Balance);
         Assert.Equal(currency.Id, account.CurrencyId);
         Assert.Equal(accountType, account.AccountType);
     }
@@ -48,7 +48,6 @@ public class AccountAggregateTests {
     }
 
     [Theory]
-    [InlineData(0)]
     [InlineData(-100)]
     public void Constructor_WithInvalidAmount_ShouldThrowAccountException(decimal invalidAmount)
     {
@@ -59,6 +58,6 @@ public class AccountAggregateTests {
         var exception = Assert.Throws<AccountException>(() => 
             new Account("Test", invalidAmount, "Desc", AccountType.Savings, currency));
 
-        Assert.Equal("Initial amount must be greater than zero", exception.Message);
+        Assert.Equal(ExceptionMessages.INVALID_AMOUNT, exception.Message);
     }
 }

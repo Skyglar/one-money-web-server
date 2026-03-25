@@ -52,7 +52,7 @@ public class CreateAccountCommandHandlerTests {
         _accountRepo.Received(1).Add(Arg.Is<Account>(a => 
             a != null &&
             a.Name == command.Name && 
-            a.Amount == command.InitialAmount &&
+            a.Balance == command.InitialAmount &&
             a.Id == resultId));
 
         // C. Verify that SaveChanges was actually called

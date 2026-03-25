@@ -1,4 +1,5 @@
 using OneMoney.Common.SeedWork;
+using Transactions.Domain.Events;
 using Transactions.Domain.Exceptions;
 
 namespace Transactions.Domain.AggregateModels;
@@ -27,6 +28,8 @@ public sealed class Transaction : Entity, IAggregateRoot {
         CurrencyCode = currencyCode;
         Description = description;
         TransactionDate = DateTime.UtcNow;
+
+        AddTransactionCreatedDomainEvent(Id, accountId, categoryId, amount);
     }
 
     public void MarkAsCompleted() => Status = TransactionStatus.Completed;
@@ -34,5 +37,11 @@ public sealed class Transaction : Entity, IAggregateRoot {
     public void MarkAsFailed(string reason) {
         Status = TransactionStatus.Failed;
         FailureReason = reason;
+    }
+
+    private void AddTransactionCreatedDomainEvent(Guid transactionId, Guid accountId, Guid categoryId, decimal amount) {
+        var transactionCreatedDomainEvent = new TransactionCreatedDomainEvent(transactionId, accountId, categoryId, amount);
+        
+        AddDomainEvent(transactionCreatedDomainEvent);
     }
 }

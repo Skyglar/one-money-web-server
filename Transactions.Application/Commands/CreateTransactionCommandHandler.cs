@@ -4,7 +4,9 @@ using Transactions.Domain.AggregateModels;
 
 namespace Transactions.Application.Commands;
 
-public sealed class CreateTransactionCommandHandler(ITransactionRepository transactionRepository, IUnitOfWork unitOfWork) 
+public sealed class CreateTransactionCommandHandler(
+    ITransactionRepository transactionRepository,
+    IUnitOfWork unitOfWork) 
     : IRequestHandler<CreateTransactionCommand, Guid> {
     
     public async Task<Guid> Handle(CreateTransactionCommand request, CancellationToken cancellationToken) {
