@@ -8,6 +8,8 @@ public abstract class Entity {
     // We use a list to store events that happened to this entity
     private List<INotification>? _domainEvents;
 
+    public long InternalId { get; protected set; }
+    
     public virtual Guid Id {
         get => _id;
         protected set => _id = value;

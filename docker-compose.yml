@@ -1,0 +1,73 @@
+services:
+  # --- Message Broker ---
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: onemoney-rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+    ports:
+      - "5672:5672"   # App connection
+      - "15672:15672" # Dashboard
+    networks:
+      - onemoney-network
+
+  # --- Database ---
+  sqlserver:
+    image: mcr.microsoft.com/azure-sql-edge:latest
+    container_name: onemoney-sqlserver
+    user: root # Sometimes needed for volume permissions
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${SQL_PASSWORD}
+      - MSSQL_PID=Developer # Runs the free developer version
+    ports:
+      - "1433:1433"
+    volumes:
+      - sql_data:/var/opt/mssql # PERSISTENCE: Data stays if container restarts
+    networks:
+      - onemoney-network
+
+  # --- Transactions Service ---
+  transactions-api:
+    build:
+      context: . # Root of your project
+      dockerfile: Transactions.API/Dockerfile # Path to the Dockerfile
+    container_name: transactions-service
+    depends_on:
+      - sqlserver
+      - rabbitmq
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=TransactionsDb;User Id=sa;Password=${SQL_PASSWORD};TrustServerCertificate=True
+      - RabbitMQ__Host=rabbitmq
+    ports:
+      - "5001:8080" # Access it at localhost:5001
+    networks:
+      - onemoney-network
+
+  # --- Finances Service ---
+  finances-api:
+    build:
+      context: .
+      dockerfile: Finances.API/Dockerfile
+    container_name: finances-service
+    depends_on:
+      - sqlserver 
+      - rabbitmq
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=FinancesDb;User Id=sa;Password=${SQL_PASSWORD};TrustServerCertificate=True
+      - RabbitMQ__Host=rabbitmq
+    ports:
+      - "5002:8080" # Access it at localhost:5002
+    networks:
+      - onemoney-network
+
+# Define the isolated "Island" for your app
+networks:
+  onemoney-network:
+    driver: bridge
+
+# Define where the DB data lives on your real hard drive
+volumes:
+  sql_data:
