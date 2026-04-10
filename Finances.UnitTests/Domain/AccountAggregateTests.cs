@@ -20,7 +20,7 @@ public class AccountAggregateTests {
         // Assert
         Assert.Equal(name, account.Name);
         Assert.Equal(amount, account.Balance);
-        Assert.Equal(currency.Id, account.CurrencyId);
+        Assert.Equal(currency.InternalId, account.CurrencyId);
         Assert.Equal(accountType, account.AccountType);
     }
     

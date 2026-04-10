@@ -10,7 +10,7 @@ public sealed class Account : Entity, IAggregateRoot {
 
     public decimal Balance { get; private set; }
 
-    public Guid CurrencyId { get; private set; }
+    public long CurrencyId { get; private set; }
 
     public string? Description { get; private set; }
 
@@ -27,7 +27,7 @@ public sealed class Account : Entity, IAggregateRoot {
         
         Id = Guid.NewGuid();
         Name = name;
-        CurrencyId = currency.Id;
+        Currency = currency;
         Balance = initialBalance;
         Description = description;
         AccountType = accountType;
