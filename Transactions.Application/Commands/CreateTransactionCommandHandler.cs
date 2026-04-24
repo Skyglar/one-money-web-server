@@ -1,4 +1,5 @@
 using MediatR;
+using OneMoney.Common.Primitives;
 using OneMoney.Common.SeedWork;
 using Transactions.Domain.AggregateModels;
 
@@ -7,9 +8,9 @@ namespace Transactions.Application.Commands;
 public sealed class CreateTransactionCommandHandler(
     ITransactionRepository transactionRepository,
     IUnitOfWork unitOfWork) 
-    : IRequestHandler<CreateTransactionCommand, Guid> {
+    : IRequestHandler<CreateTransactionCommand, Result<Guid>> {
     
-    public async Task<Guid> Handle(CreateTransactionCommand request, CancellationToken cancellationToken) {
+    public async Task<Result<Guid>> Handle(CreateTransactionCommand request, CancellationToken cancellationToken) {
 
         var transaction = new Transaction(
             request.Amount,
@@ -20,8 +21,8 @@ public sealed class CreateTransactionCommandHandler(
         
         transactionRepository.Add(transaction);
         
-        await unitOfWork.SaveChangesAsync(cancellationToken);
+        await unitOfWork.SaveEntitiesAsync(cancellationToken);
         
-        return transaction.Id;
+        return Result<Guid>.Success(transaction.Id);
     }
 }

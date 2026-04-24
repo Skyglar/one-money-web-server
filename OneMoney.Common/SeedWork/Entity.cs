@@ -3,16 +3,14 @@ using MediatR;
 namespace OneMoney.Common.SeedWork;
 
 public abstract class Entity {
-    private Guid _id;
-
     // We use a list to store events that happened to this entity
     private List<INotification>? _domainEvents;
 
     public long InternalId { get; protected set; }
     
     public virtual Guid Id {
-        get => _id;
-        protected set => _id = value;
+        get;
+        protected set => field = value;
     }
 
     public IReadOnlyCollection<INotification>? DomainEvents => _domainEvents?.AsReadOnly();
