@@ -28,18 +28,18 @@ public class CreateTransactionCommandHandlerTests {
             "");
         
         // Act
-        var resultId = await _handler.Handle(command, CancellationToken.None);
+        var result = await _handler.Handle(command, CancellationToken.None);
         
         // Assert
-        Assert.NotEqual(Guid.Empty, resultId);
+        Assert.NotEqual(Guid.Empty, result.Value);
         
         _transactionRepository.Received(1).Add(Arg.Is<Transaction>(a => 
             a != null &&
             a.AccountId == command.AccountId && 
             a.CategoryId == command.CategoryId &&
             a.Amount == command.Amount &&
-            a.Id == resultId));
+            a.Id == result.Value));
 
-        await _unitOfWork.Received(1).SaveChangesAsync(Arg.Any<CancellationToken>());
+        await _unitOfWork.Received(1).SaveEntitiesAsync(Arg.Any<CancellationToken>());
     }
 }

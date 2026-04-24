@@ -1,4 +1,5 @@
 using MediatR;
+using OneMoney.Common.Primitives;
 
 namespace Transactions.Application.Commands;
 
@@ -8,4 +9,4 @@ public record CreateTransactionCommand(
     decimal Amount,
     string Currency,
     string Description
-    ) : IRequest<Guid>;
+    ) : IRequest<Result<Guid>>;

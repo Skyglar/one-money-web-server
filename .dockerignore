@@ -1,0 +1,14 @@
+# Ignore the IDE and local build artifacts
+.vs/
+.idea/
+.vscode/
+bin/
+obj/
+
+# Ignore Docker files themselves
+Dockerfile*
+docker-compose*
+
+# Ignore Git
+.git/
+.gitignore

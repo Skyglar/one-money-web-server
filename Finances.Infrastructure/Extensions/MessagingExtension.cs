@@ -1,5 +1,7 @@
+using EasyNetQ;
 using Finances.Infrastructure.Configuration;
-using MassTransit;
+using Finances.Infrastructure.Messaging.Consumers;
+using Finances.Infrastructure.Messaging.HostedServices;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -7,23 +9,19 @@ namespace Finances.Infrastructure.Extensions;
 
 public static class MessagingExtension {
     public static IServiceCollection AddMessaging(this IServiceCollection services, IConfiguration configuration) {
-        services.AddMassTransit(x => {
-            var rabbitSettings = configuration.GetSection("RabbitMQ").Get<RabbitMqSettings>() 
-                                 ?? new RabbitMqSettings();
-            
-            x.SetKebabCaseEndpointNameFormatter();
+        var rabbitSettings = configuration.GetSection("RabbitMQ").Get<RabbitMqSettings>()
+                             ?? new RabbitMqSettings();
 
-            x.UsingRabbitMq((context, cfg) => {
-                cfg.Host(rabbitSettings.Host, rabbitSettings.VirtualHost, h =>
-                {
-                    h.Username(rabbitSettings.Username);
-                    h.Password(rabbitSettings.Password);
-                });
-
-                cfg.ConfigureEndpoints(context);
-            });
-        });
+        services.AddEasyNetQ(BuildConnectionString(rabbitSettings));
+        services.AddHostedService<TransactionCreatedSubscriberHostedService>();
+        services.AddScoped<TransactionCreatedConsumer>();
 
         return services;
+    }
+
+    private static string BuildConnectionString(RabbitMqSettings settings) {
+        var virtualHost = string.IsNullOrWhiteSpace(settings.VirtualHost) ? "/" : settings.VirtualHost;
+
+        return $"host={settings.Host};virtualHost={virtualHost};username={settings.Username};password={settings.Password}";
     }
 }

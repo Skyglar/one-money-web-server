@@ -12,6 +12,13 @@ public static class Extensions {
             cfg.RegisterServicesFromAssembly(typeof(IInfrastructureAssemblyMarker).Assembly);
         });
         
+        services.AddCors(options => {
+            options.AddDefaultPolicy(policy => 
+                policy.WithOrigins("http://localhost:3000")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
+        });
+        
         return services;
     }
 }
