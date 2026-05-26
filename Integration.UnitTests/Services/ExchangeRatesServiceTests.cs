@@ -16,14 +16,20 @@ public class ExchangeRatesServiceTests {
     {
         var handler = new StubHttpMessageHandler(_ => new HttpResponseMessage(HttpStatusCode.OK) {
             Content = JsonContent("""
-                {
-                  "base": "USD",
-                  "date": "2026-05-09",
-                  "rates": {
-                    "EUR": 0.91,
-                    "UAH": 41.2
+                [
+                  {
+                    "date": "2026-05-09",
+                    "base": "USD",
+                    "quote": "EUR",
+                    "rate": 0.91
+                  },
+                  {
+                    "date": "2026-05-09",
+                    "base": "USD",
+                    "quote": "UAH",
+                    "rate": 41.2
                   }
-                }
+                ]
                 """)
         });
         var service = CreateService(handler);
@@ -43,18 +49,24 @@ public class ExchangeRatesServiceTests {
     }
 
     [Fact]
-    public async Task GetExchangeRates_ProviderResponse_DeserializesRatesObject()
+    public async Task GetExchangeRates_ProviderResponse_DeserializesRateRows()
     {
         var handler = new StubHttpMessageHandler(_ => new HttpResponseMessage(HttpStatusCode.OK) {
             Content = JsonContent("""
-                {
-                  "base": "USD",
-                  "date": "2026-05-09",
-                  "rates": {
-                    "EUR": 0.91,
-                    "UAH": 41.2
+                [
+                  {
+                    "date": "2026-05-09",
+                    "base": "USD",
+                    "quote": "EUR",
+                    "rate": 0.91
+                  },
+                  {
+                    "date": "2026-05-09",
+                    "base": "USD",
+                    "quote": "UAH",
+                    "rate": 41.2
                   }
-                }
+                ]
                 """)
         });
         var service = CreateService(handler);
@@ -68,8 +80,8 @@ public class ExchangeRatesServiceTests {
         Assert.NotNull(result.Value);
         Assert.Equal("USD", result.Value.Base);
         Assert.Equal(new DateOnly(2026, 5, 9), result.Value.Date);
-        Assert.Equal(0.91m, result.Value.Rates["EUR"]);
-        Assert.Equal(41.2m, result.Value.Rates["UAH"]);
+        Assert.Equal(1m / 0.91m, result.Value.Rates["EUR"]);
+        Assert.Equal(1m / 41.2m, result.Value.Rates["UAH"]);
     }
 
     [Fact]
