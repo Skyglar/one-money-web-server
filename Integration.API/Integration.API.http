@@ -1,6 +1,11 @@
 @Integration.API_HostAddress = http://localhost:5145
 
-GET {{Integration.API_HostAddress}}/weatherforecast/
+GET {{Integration.API_HostAddress}}/api/exchange-rates?base=USD&quotes=EUR,UAH
+Accept: application/json
+
+###
+
+GET {{Integration.API_HostAddress}}/health
 Accept: application/json
 
 ###

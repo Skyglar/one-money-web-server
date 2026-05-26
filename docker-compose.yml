@@ -63,6 +63,24 @@ services:
     networks:
       - onemoney-network
 
+  # --- Integration Service ---
+  integration-api:
+    build:
+      context: .
+      dockerfile: Integration.API/Dockerfile
+    container_name: integration-service
+    depends_on:
+      - sqlserver
+      - rabbitmq
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=IntegrationDb;User Id=sa;Password=${SQL_PASSWORD};TrustServerCertificate=True
+      - RabbitMQ__Host=rabbitmq
+    ports:
+      - "5003:8080"
+    networks:
+      - onemoney-network
+
 # Define the isolated "Island" for your app
 networks:
   onemoney-network:

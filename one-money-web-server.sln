@@ -1,19 +1,19 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Web-API", "Web-API\Web-API.csproj", "{860FB9BA-E859-4EC1-8047-8DD42F036451}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Identity.API", "Identity.API\Identity.API.csproj", "{B5BB4B3A-AFA6-4450-84D9-1A9782F3A8D6}"
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "Identity.API", "Identity.API\Identity.API.csproj", "{B5BB4B3A-AFA6-4450-84D9-1A9782F3A8D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Integration.API", "Integration.API\Integration.API.csproj", "{9A6558F0-0CE8-4ABB-9530-7CA8BF4E7F2C}"
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "Integration.API", "Integration.API\Integration.API.csproj", "{9A6558F0-0CE8-4ABB-9530-7CA8BF4E7F2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Statistics.API", "Statistics.API\Statistics.API.csproj", "{CA8EA5F3-A25E-4F6E-8625-65E735C709A6}"
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "Statistics.API", "Statistics.API\Statistics.API.csproj", "{CA8EA5F3-A25E-4F6E-8625-65E735C709A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions.API", "Transactions.API\Transactions.API.csproj", "{301A8143-567B-4BA9-9167-60BB0E23794D}"
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "Transactions.API", "Transactions.API\Transactions.API.csproj", "{301A8143-567B-4BA9-9167-60BB0E23794D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances.API", "Finances.API\Finances.API.csproj", "{AD087C6F-7A57-40A8-90BC-4BCFB2CB31C7}"
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "Finances.API", "Finances.API\Finances.API.csproj", "{AD087C6F-7A57-40A8-90BC-4BCFB2CB31C7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{87C7C31F-B504-427D-940D-88BC8C32727D}"
 EndProject
@@ -29,27 +29,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Statistics", "Statistics", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{45E61512-3DC7-48CC-8A7F-6C55866679C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances.Domain", "Finances.Domain\Finances.Domain.csproj", "{F645C7B0-B26F-46E3-98D9-D3F638D0809A}"
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "Finances.Domain", "Finances.Domain\Finances.Domain.csproj", "{F645C7B0-B26F-46E3-98D9-D3F638D0809A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances.Application", "Finances.Application\Finances.Application.csproj", "{F1B32D21-7F79-4D14-A487-A9E4B7503A46}"
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "Finances.Application", "Finances.Application\Finances.Application.csproj", "{F1B32D21-7F79-4D14-A487-A9E4B7503A46}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances.Infrastructure", "Finances.Infrastructure\Finances.Infrastructure.csproj", "{C088606A-CC77-4F85-B8EC-13A9A2B9738D}"
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "Finances.Infrastructure", "Finances.Infrastructure\Finances.Infrastructure.csproj", "{C088606A-CC77-4F85-B8EC-13A9A2B9738D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions.Domain", "Transactions.Domain\Transactions.Domain.csproj", "{112D6249-1EEF-4FDA-A6B8-A303D417F23A}"
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "Transactions.Domain", "Transactions.Domain\Transactions.Domain.csproj", "{112D6249-1EEF-4FDA-A6B8-A303D417F23A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions.Application", "Transactions.Application\Transactions.Application.csproj", "{35F4E1B4-37FE-49BC-B0A1-E8FA339997DF}"
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "Transactions.Application", "Transactions.Application\Transactions.Application.csproj", "{35F4E1B4-37FE-49BC-B0A1-E8FA339997DF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions.Infrastructure", "Transactions.Infrastructure\Transactions.Infrastructure.csproj", "{95CDB53A-8F54-4328-B62B-D2710BFA569B}"
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "Transactions.Infrastructure", "Transactions.Infrastructure\Transactions.Infrastructure.csproj", "{95CDB53A-8F54-4328-B62B-D2710BFA569B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7614442E-6925-4DD6-8611-8E536E2D2FFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Finances.UnitTests", "Finances.UnitTests\Finances.UnitTests.csproj", "{CC1AD998-AFEF-458D-8676-3261DFA7562F}"
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "Finances.UnitTests", "Finances.UnitTests\Finances.UnitTests.csproj", "{CC1AD998-AFEF-458D-8676-3261DFA7562F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneMoney.Common", "OneMoney.Common\OneMoney.Common.csproj", "{077905C7-0162-4CA4-81BC-6863BE201030}"
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "OneMoney.Common", "OneMoney.Common\OneMoney.Common.csproj", "{077905C7-0162-4CA4-81BC-6863BE201030}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.UnitTests", "Common.UnitTests\Common.UnitTests.csproj", "{34CD21F4-8B8E-4435-BE27-B52ACC92503C}"
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "Common.UnitTests", "Common.UnitTests\Common.UnitTests.csproj", "{34CD21F4-8B8E-4435-BE27-B52ACC92503C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transactions.UnitTests", "Transactions.UnitTests\Transactions.UnitTests.csproj", "{5590524E-154E-4262-A3F1-F14C09089170}"
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "Transactions.UnitTests", "Transactions.UnitTests\Transactions.UnitTests.csproj", "{5590524E-154E-4262-A3F1-F14C09089170}"
+EndProject
+Project("{FAE04EC0-301F-11D3-8F4B-00C04F79EFBC}") = "Integration.UnitTests", "Integration.UnitTests\Integration.UnitTests.csproj", "{42493C66-5CF1-48E8-B8AA-526837CEFE21}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -121,6 +123,10 @@ Global
 		{5590524E-154E-4262-A3F1-F14C09089170}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5590524E-154E-4262-A3F1-F14C09089170}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5590524E-154E-4262-A3F1-F14C09089170}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42493C66-5CF1-48E8-B8AA-526837CEFE21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42493C66-5CF1-48E8-B8AA-526837CEFE21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42493C66-5CF1-48E8-B8AA-526837CEFE21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42493C66-5CF1-48E8-B8AA-526837CEFE21}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -150,5 +156,6 @@ Global
 		{077905C7-0162-4CA4-81BC-6863BE201030} = {45E61512-3DC7-48CC-8A7F-6C55866679C1}
 		{34CD21F4-8B8E-4435-BE27-B52ACC92503C} = {7614442E-6925-4DD6-8611-8E536E2D2FFE}
 		{5590524E-154E-4262-A3F1-F14C09089170} = {7614442E-6925-4DD6-8611-8E536E2D2FFE}
+		{42493C66-5CF1-48E8-B8AA-526837CEFE21} = {7614442E-6925-4DD6-8611-8E536E2D2FFE}
 	EndGlobalSection
 EndGlobal
