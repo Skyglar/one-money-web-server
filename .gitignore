@@ -8,6 +8,7 @@
 *.user
 *.usersecrets
 usersecrets.json
+/Identity.API/tempkey.jwk
 
 # User-specific files
 *.rsuser

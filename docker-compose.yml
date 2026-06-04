@@ -63,6 +63,24 @@ services:
     networks:
       - onemoney-network
 
+  # --- Identity Service ---
+  identity-api:
+    build:
+      context: .
+      dockerfile: Identity.API/Dockerfile
+    container_name: identity-service
+    depends_on:
+      - sqlserver
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__IdentityConnection=Server=sqlserver;Database=IdentityDb;User Id=sa;Password=${SQL_PASSWORD};TrustServerCertificate=True
+      - Identity__IssuerUri=http://localhost:5004
+      - Authentication__RequireHttpsMetadata=false
+    ports:
+      - "5004:8080"
+    networks:
+      - onemoney-network
+
   # --- Integration Service ---
   integration-api:
     build:

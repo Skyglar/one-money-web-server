@@ -8,6 +8,9 @@ public interface IAccountRepository : IRepository<Account> {
     
     void Update(Account account);
 
-    Task<Account?> FindAsync(string accountIdentityGuid, CancellationToken ct = default);
-    Task<Account?> GetByIdAsync(Guid id, CancellationToken ct = default);
+    Task<Account?> GetByExternalIdAsync(Guid accountIdentityGuid, CancellationToken ct = default);
+    
+    Task<Account?> GetByInternalIdAsync(long id, CancellationToken ct = default);
+    
+    Task<IEnumerable<Account>> GetAllByUserIdAsync(Guid userId, CancellationToken ct = default);
 }

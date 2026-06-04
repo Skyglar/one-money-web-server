@@ -13,25 +13,22 @@ public sealed class ProcessIncomingTransactionCommandHandler(
     IUnitOfWork unitOfWork)
     : IRequestHandler<ProcessIncomingTransactionCommand, Result> {
     public async Task<Result> Handle(ProcessIncomingTransactionCommand request, CancellationToken cancellationToken) {
-        var account = await accountRepository.GetByIdAsync(request.AccountId, cancellationToken);
+        var account = await accountRepository.GetByExternalIdAsync(request.AccountId, cancellationToken);
         if (account == null) return Result.Failure("Invalid account.");
 
-        var category = await categoryRepository.GetByIdAsync(request.CategoryId, cancellationToken);
+        var category = await categoryRepository.GetByExternalIdAsync(request.CategoryId, cancellationToken);
         if (category == null) return Result.Failure("Invalid category.");
 
-        try 
-        {
+        try {
             account.Debit(request.Amount, request.TransactionId);
-        }
-        catch (AccountException ex) 
-        {
+        } catch (AccountException ex) {
             return Result.Failure(ex.Message);
         }
-        
+
         accountRepository.Update(account);
-        
-        await unitOfWork.SaveChangesAsync(cancellationToken);
-        
+
+        await unitOfWork.SaveEntitiesAsync(cancellationToken);
+
         return Result.Success();
     }
 }

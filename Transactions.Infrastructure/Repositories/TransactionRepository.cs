@@ -9,6 +9,6 @@ public sealed class TransactionRepository(TransactionsDbContext context) : ITran
 
     public void Update(Transaction transaction) => context.Set<Transaction>().Update(transaction);
 
-    public Task<Transaction?> FindAsync(Guid id, CancellationToken ct = default) =>
-        context.Set<Transaction>().FirstOrDefaultAsync(t => t.Id == id, ct);
+    public async Task<Transaction?> FindAsync(Guid id, CancellationToken ct = default) =>
+        await context.Set<Transaction>().FirstOrDefaultAsync(t => t.Id == id, ct);
 }
